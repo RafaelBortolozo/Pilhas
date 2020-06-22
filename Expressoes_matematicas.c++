@@ -26,10 +26,16 @@ void destroiPilha(Pilha *pilha);
 main(){
     Pilha *pilha = criaPilha();
 	
-    char texto[]= "7+ {7846} +- (789{895}8) {([8498]8)4} ([{";
+    //char texto[]= "7+ {A} +- (B{CCCC}) {([M]T)U} ([{";
+    //char texto[]= "(A + B} )";
+    char texto[]= "{[A + B] - [(C - D)]";
+    //char texto[]= "(A + B)-{C + D}-[F+ G]";
+    //char texto[]= "((H) * {([J + K])})";
+    //char texto[]= "(((A))))";
     insereTexto(pilha, texto);
     
     mostraPilha(pilha);
+    empty(pilha);
     destroiPilha(pilha);
 }
 
@@ -81,6 +87,9 @@ void insereTexto(Pilha *pilha,char *texto){
             aux= stacktop(pilha);
             if(aux=='('){
                 pop(pilha);
+            }else{
+                printf("\nExpressao matematica INVALIDA pelo caracter: )");
+                exit(0);
             }
             break;
 
@@ -88,6 +97,9 @@ void insereTexto(Pilha *pilha,char *texto){
             aux= stacktop(pilha);
             if(aux=='['){
                 pop(pilha);
+            }else{
+                printf("\nExpressao matematica INVALIDA pelo caracter: ]");
+                exit(0);
             }
             break;
 
@@ -95,6 +107,9 @@ void insereTexto(Pilha *pilha,char *texto){
             aux= stacktop(pilha);
             if(aux=='{'){
                 pop(pilha);
+            } else{
+                printf("\nExpressao matematica INVALIDA pelo caracter: }");
+                exit(0);
             }
             break;
         }
@@ -134,7 +149,7 @@ char stacktop(Pilha *pilha){
         char aux= pilha->tail->escopo;
         return aux;
     }else{
-        printf("Expressao invalida, erro de Underflow!\n");
+        printf("\nExpressao invalida, erro de Underflow!\n");
         exit(0);
     }
     
